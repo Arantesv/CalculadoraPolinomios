@@ -22,21 +22,37 @@
  */
 void imprimir_polinomio(int termos[], int grau)
 {
-    for (int i = grau; i >= 0; i--)
+    int i;
+
+    for (i = grau; i >= 0; i--)
     {
         if (termos[i] != 0)
-        {
-            if (i == grau) // Primeiro termo.
-            {
+        { 
+            if (i == grau)              // Primeiro termo.
+            { 
                 printf("%dx^%d", termos[i], i);
             }
-            else if (i == 0) // Último termo (constante).
-            {
-                printf(termos[i] > 0 ? " + %d" : " - %d", abs(termos[i]));
+            else if (i == 0)            // Último termo.
+            { 
+                if (termos[i] > 0)
+                {
+                    printf(" + %d", termos[i]);
+                }
+                else
+                {
+                    printf(" - %d", -termos[i]);
+                }
             }
-            else // Termos intermediários.
-            {
-                printf(termos[i] > 0 ? " + %dx^%d" : " - %dx^%d", abs(termos[i]), i);
+            else                        // Termos intermediários.
+            { 
+                if (termos[i] > 0)
+                {
+                    printf(" + %dx^%d", termos[i], i);
+                }
+                else
+                {
+                    printf(" - %dx^%d", -termos[i], i);
+                }
             }
         }
     }
@@ -47,7 +63,7 @@ void imprimir_polinomio(int termos[], int grau)
  * @brief Calcula o valor de um polinômio para um dado x.
  *
  * Esta função calcula o valor do polinômio para um dado valor de x,
- * usando o método de Horner para eficiência.
+ * usando a expressão: valor = termo[i] * x^i.
  *
  * @param polinomio Array contendo os coeficientes do polinômio.
  * @param grau Grau do polinômio.
@@ -56,9 +72,10 @@ void imprimir_polinomio(int termos[], int grau)
  */
 float valor_polinomio(int polinomio[], int grau, float x)
 {
-    float valor = 0.0;
+    float valor = 0;
+    int i;
 
-    for (int i = grau; i >= 0; i--)
+    for (i = grau; i >= 0; i--)   
     {
         valor += polinomio[i] * pow(x, i);
     }
@@ -80,17 +97,19 @@ float valor_polinomio(int polinomio[], int grau, float x)
  */
 void soma_polinomio(int termos1[], int grau1, int termos2[], int grau2, int resultado[], int grauR)
 {
-    for (int i = 0; i <= grauR; i++)
+    int i;
+
+    for (i = 0; i <= grauR; i++) 
     {
         resultado[i] = 0;
     }
 
-    for (int i = 0; i <= grau1; i++)
+    for (i = 0; i <= grau1; i++)
     {
-        resultado[i] += termos1[i];
+        resultado[i] += termos1[i];     
     }
 
-    for (int i = 0; i <= grau2; i++)
+    for (i = 0; i <= grau2; i++)
     {
         resultado[i] += termos2[i];
     }
@@ -109,14 +128,16 @@ void soma_polinomio(int termos1[], int grau1, int termos2[], int grau2, int resu
  */
 void multiplicacao_polinomio(int termos1[], int grau1, int termos2[], int grau2, int resultado[])
 {
-    for (int i = 0; i <= grau1 + grau2; i++)
+    int i, j;
+
+    for (i = 0; i <= grau1 + grau2; i++)
     {
         resultado[i] = 0;
     }
 
-    for (int i = 0; i <= grau1; i++)
+    for (i = 0; i <= grau1; i++)                    
     {
-        for (int j = 0; j <= grau2; j++)
+        for (j = 0; j <= grau2; j++)
         {
             resultado[i + j] += termos1[i] * termos2[j];
         }
